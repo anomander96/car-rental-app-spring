@@ -1,4 +1,4 @@
-package com.lab.carrentalappspring;
+package com.lab.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

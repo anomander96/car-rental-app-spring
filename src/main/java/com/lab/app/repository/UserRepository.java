@@ -1,8 +1,9 @@
-package com.lab.carrentalappspring.repository;
+package com.lab.app.repository;
 
-import com.lab.carrentalappspring.model.User;
+import com.lab.app.model.User;
 
 public interface UserRepository {
+
     User getUser(String email);
 
     User createUser(User user);

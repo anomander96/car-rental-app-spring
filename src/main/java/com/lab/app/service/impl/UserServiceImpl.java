@@ -1,9 +1,9 @@
-package com.lab.carrentalappspring.service.impl;
+package com.lab.app.service.impl;
 
-import com.lab.carrentalappspring.dto.UserDto;
-import com.lab.carrentalappspring.model.User;
-import com.lab.carrentalappspring.repository.UserRepository;
-import com.lab.carrentalappspring.service.UserService;
+import com.lab.app.dto.UserDto;
+import com.lab.app.model.User;
+import com.lab.app.repository.UserRepository;
+import com.lab.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

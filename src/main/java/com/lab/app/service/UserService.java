@@ -1,6 +1,6 @@
-package com.lab.carrentalappspring.service;
+package com.lab.app.service;
 
-import com.lab.carrentalappspring.dto.UserDto;
+import com.lab.app.dto.UserDto;
 
 public interface UserService {
     UserDto getUser(String email);

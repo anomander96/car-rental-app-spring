@@ -1,11 +1,11 @@
-package com.lab.carrentalappspring.dto;
+package com.lab.app.model;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class UserDto {
+public class User {
 
     private int userId;
     private int userRoleId;
