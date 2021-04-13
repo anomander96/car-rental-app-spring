@@ -11,6 +11,7 @@ public class CarDto {
 
     private int carId;
     private int carCategoryId;
+//    private String vinNumber;
     private String brandName;
     private String modelName;
     private String color;

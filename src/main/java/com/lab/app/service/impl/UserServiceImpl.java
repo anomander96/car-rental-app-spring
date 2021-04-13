@@ -5,9 +5,11 @@ import com.lab.app.model.User;
 import com.lab.app.repository.UserRepository;
 import com.lab.app.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -16,6 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUser(String email) {
         User user = userRepository.getUser(email);
+        log.info("User with email: {} founded", email);
         return mapUserToUserDto(user);
     }
 
@@ -23,6 +26,7 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
         User user = mapUserDtoToUser(userDto);
         user = userRepository.createUser(user);
+        log.info("User: {} added", userDto);
         return mapUserToUserDto(user);
     }
 
@@ -30,11 +34,13 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(String email, UserDto userDto) {
         User user = mapUserDtoToUser(userDto);
         user = userRepository.updateUser(email, user);
+        log.info("User with email: {} updated", email);
         return mapUserToUserDto(user);
     }
 
     @Override
     public void deleteUser(String email) {
+        log.info("User with email: {} deleted");
         userRepository.deleteUser(email);
     }
 
