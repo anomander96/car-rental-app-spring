@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @RestController
 @Slf4j
@@ -19,27 +20,27 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{email}")
     public UserDto getUser(@PathVariable String email) {
-        log.info("Extracting user with email: {}", email);
+        log.info("|| Controller layer: Extracting user with email: {} ||", email);
         return userService.getUser(email);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto userDto) {
-        log.info("User: {} successfully created", userDto);
+    public UserDto createUser(@Valid @RequestBody UserDto userDto) {
+        log.info("|| Controller layer: User: {} successfully created ||", userDto);
         return userService.createUser(userDto);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{email}")
-    public UserDto updateUser(@PathVariable String email, @RequestBody UserDto userDto) {
-        log.info("User: {} successfully updated", userDto);
+    public UserDto updateUser(@PathVariable String email, @Valid @RequestBody UserDto userDto) {
+        log.info("|| Controller layer: User: {} successfully updated ||", userDto);
         return userService.updateUser(email, userDto);
     }
 
     @DeleteMapping(value = "/{email}")
     public ResponseEntity<Void> deleteUser(@PathVariable String email) {
-        log.info("User with email: {} successfully deleted", email);
+        log.info("|| Controller layer: User with email: {} successfully deleted ||", email);
         userService.deleteUser(email);
         return ResponseEntity.noContent().build();
     }

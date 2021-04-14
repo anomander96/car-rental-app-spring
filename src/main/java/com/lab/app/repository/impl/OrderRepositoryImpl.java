@@ -16,7 +16,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order getOrder(int orderId) {
-        log.info("Getting order with id: {} from database", orderId);
+        log.info("|| Repository layer: Getting order with id: {} ||", orderId);
         return orderList.stream()
                 .filter(order -> order.getOrderId() == orderId)
                 .findFirst()
@@ -26,7 +26,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order createOrder(Order order) {
         orderList.add(order);
-        log.info("Creating a new order in database");
+        log.info("|| Repository layer: Creating a new order ||");
         return order;
     }
 
@@ -38,13 +38,13 @@ public class OrderRepositoryImpl implements OrderRepository {
         } else {
             throw new RuntimeException();
         }
-        log.info("Updating order in database");
+        log.info("|| Repository layer: Updating order with id: {} ||", orderId);
         return order;
     }
 
     @Override
     public void deleteOrder(int orderId) {
-        log.info("Deleting order with id: {} in database", orderId);
+        log.info("|| Repository layer: Deleting order with id: {} ||", orderId);
         orderList.removeIf(order -> order.getOrderId() == orderId);
     }
 

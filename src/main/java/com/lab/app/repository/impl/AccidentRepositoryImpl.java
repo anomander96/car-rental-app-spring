@@ -17,7 +17,7 @@ public class AccidentRepositoryImpl implements AccidentRepository {
 
     @Override
     public Accident getAccident(int accidentId) {
-        log.info("Getting accident with id: {} from database", accidentId);
+        log.info("|| Repository layer: Getting accident with id: {} ||", accidentId);
         return accidentList.stream()
                 .filter(accident -> accident.getAccidentId() == accidentId)
                 .findFirst()
@@ -26,7 +26,7 @@ public class AccidentRepositoryImpl implements AccidentRepository {
 
     @Override
     public Accident createAccident(Accident accident) {
-        log.info("Creating a new accident in database");
+        log.info("|| Repository layer: Creating a new accident ||");
         accidentList.add(accident);
         return accident;
     }
@@ -39,13 +39,13 @@ public class AccidentRepositoryImpl implements AccidentRepository {
         } else {
             throw new RuntimeException();
         }
-        log.info("Updating accident in database");
+        log.info("|| Repository layer: Updating accident with id: {} ||", accidentId);
         return accident;
     }
 
     @Override
     public void deleteAccident(int accidentId) {
-        log.info("Deleting accident with id: {} from database", accidentId);
+        log.info("|| Repository layer: Deleting accident with id: {} ||", accidentId);
         accidentList.removeIf(accident -> accident.getAccidentId() == accidentId);
     }
 }

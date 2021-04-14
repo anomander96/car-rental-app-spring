@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUser(String email) {
-        log.info("Getting user with email: {} from database", email);
+        log.info("|| Repository layer: Getting user with email: {} ||", email);
         return userList.stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
@@ -26,7 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User createUser(User user) {
         userList.add(user);
-        log.info("Creating a new user in database");
+        log.info("|| Repository layer: Creating a new user ||");
         return user;
     }
 
@@ -38,13 +38,13 @@ public class UserRepositoryImpl implements UserRepository {
         } else {
             throw new RuntimeException("User doesn't exist");
         }
-        log.info("Updating user in database");
+        log.info("|| Repository layer: Updating user with email: {} ||", email);
         return user;
     }
 
     @Override
     public void deleteUser(String email) {
-        log.info("Deleting user with email: {} from database", email);
+        log.info("|| Repository layer: Deleting user with email: {} ||", email);
         userList.removeIf(user -> user.getEmail().equals(email));
     }
 }

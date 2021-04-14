@@ -1,6 +1,7 @@
 package com.lab.app.service.impl;
 
 import com.lab.app.dto.AccidentDto;
+import com.lab.app.mapper.AccidentMapper;
 import com.lab.app.model.Accident;
 import com.lab.app.repository.AccidentRepository;
 import com.lab.app.service.AccidentService;
@@ -11,14 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class AccidentServiceImpl implements AccidentService {
+public class AccidentServiceImpl implements AccidentService, AccidentMapper {
 
     private final AccidentRepository accidentRepository;
 
     @Override
     public AccidentDto getAccident(int accidentId) {
         Accident accident = accidentRepository.getAccident(accidentId);
-        log.info("Accident with id: {} founded", accidentId);
+        log.info("|| Service layer: Getting an accident with id: {} ||", accidentId);
         return mapAccidentToAccidentDto(accident);
     }
 
@@ -26,7 +27,7 @@ public class AccidentServiceImpl implements AccidentService {
     public AccidentDto createAccident(AccidentDto accidentDto) {
         Accident accident = mapAccidentDtoToAccident(accidentDto);
         accident = accidentRepository.createAccident(accident);
-        log.info("Accident: {} added", accidentDto);
+        log.info("|| Service layer: Creating a new accident ||");
         return mapAccidentToAccidentDto(accident);
     }
 
@@ -34,17 +35,18 @@ public class AccidentServiceImpl implements AccidentService {
     public AccidentDto updateAccident(AccidentDto accidentDto, int accidentId) {
         Accident accident = mapAccidentDtoToAccident(accidentDto);
         accident = accidentRepository.updateAccident(accident, accidentId);
-        log.info("Accident with id: {} updated", accidentId);
+        log.info("|| Service layer: Updating accident with id: {} ||", accidentId);
         return mapAccidentToAccidentDto(accident);
     }
 
     @Override
     public void deleteAccident(int accidentId) {
-        log.info("Accident with id: {} deleted", accidentId);
+        log.info("|| Service layer: Deleting accident with id: {} ||", accidentId);
         accidentRepository.deleteAccident(accidentId);
     }
 
-    private Accident mapAccidentDtoToAccident(AccidentDto accidentDto) {
+    @Override
+    public Accident mapAccidentDtoToAccident(AccidentDto accidentDto) {
         return Accident.builder()
                 .accidentId(accidentDto.getAccidentId())
                 .accidentCategoryId(accidentDto.getAccidentCategoryId())
@@ -55,7 +57,8 @@ public class AccidentServiceImpl implements AccidentService {
                 .build();
     }
 
-    private AccidentDto mapAccidentToAccidentDto(Accident accident) {
+    @Override
+    public AccidentDto mapAccidentToAccidentDto(Accident accident) {
         return AccidentDto.builder()
                 .accidentId(accident.getAccidentId())
                 .accidentCategoryId(accident.getAccidentCategoryId())

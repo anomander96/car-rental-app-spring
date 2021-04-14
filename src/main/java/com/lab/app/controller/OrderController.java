@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @Slf4j
 @RequestMapping(value = "/orders")
@@ -19,27 +21,27 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{orderId}")
     public OrderDto getOrder(@PathVariable int orderId) {
-        log.info("Extracting order with id: {}", orderId);
+        log.info("|| Controller layer: Extracting order with id: {} ||", orderId);
         return orderService.getOrder(orderId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public OrderDto createOrder(@RequestBody OrderDto orderDto) {
-        log.info("Order: {} successfully created", orderDto);
+    public OrderDto createOrder(@Valid @RequestBody OrderDto orderDto) {
+        log.info("|| Controller layer: Order: {} successfully created ||", orderDto);
         return orderService.createOrder(orderDto);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{orderId}")
-    public OrderDto updateOrder(@RequestBody OrderDto orderDto, @PathVariable int orderId) {
-        log.info("Order: {} successfully updated", orderDto);
+    public OrderDto updateOrder(@Valid @RequestBody OrderDto orderDto, @PathVariable int orderId) {
+        log.info("|| Controller layer: Order: {} successfully updated ||", orderDto);
         return orderService.updateOrder(orderDto, orderId);
     }
 
     @DeleteMapping(value = "/{orderId}")
     public ResponseEntity<Void> deleteOrder(@PathVariable int orderId) {
-        log.info("Order with id: {} successfully deleted", orderId);
+        log.info("|| Controller layer: Order with id: {} successfully deleted ||", orderId);
         orderService.deleteOrder(orderId);
         return ResponseEntity.noContent().build();
     }

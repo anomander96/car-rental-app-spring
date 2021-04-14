@@ -17,7 +17,7 @@ public class CarRepositoryImpl implements CarRepository {
 
     @Override
     public Car getCar(int carId) {
-        log.info("Getting car with id: {} from database", carId);
+        log.info("|| Repository layer: Getting car with id: {} ||", carId);
         return carList.stream()
                 .filter(car -> car.getCarId() == carId)
                 .findFirst()
@@ -27,7 +27,7 @@ public class CarRepositoryImpl implements CarRepository {
     @Override
     public Car createCar(Car car) {
         carList.add(car);
-        log.info("Creating a new car in database");
+        log.info("|| Repository layer: Creating a new car ||");
         return car;
     }
 
@@ -39,13 +39,13 @@ public class CarRepositoryImpl implements CarRepository {
         } else {
             throw new NoSuchElementException();
         }
-        log.info("Updating car in database");
+        log.info("|| Repository layer: Updating car with id: {} ||", carId);
         return car;
     }
 
     @Override
     public void deleteCar(int carId) {
-        log.info("Deleting car with id: {} from database", carId);
+        log.info("|| Repository layer: Deleting car with id: {} ||", carId);
         carList.removeIf(car -> car.getCarId() == carId);
     }
 }

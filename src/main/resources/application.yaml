@@ -1,0 +1,15 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+  endpoint:
+    health:
+      show-details: always
+
+# Configuring an "info endpoint"
+info:
+  app:
+    name: "Car Rental Spring App"
+    description: "Simple app for renting cars on any choice"
