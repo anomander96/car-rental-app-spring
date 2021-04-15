@@ -1,5 +1,6 @@
 package com.lab.app.repository.impl;
 
+import com.lab.app.exception.UserNotFoundException;
 import com.lab.app.model.User;
 import com.lab.app.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
         return userList.stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
