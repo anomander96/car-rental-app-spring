@@ -1,5 +1,6 @@
 package com.lab.app.repository.impl;
 
+import com.lab.app.exception.CarNotFoundException;
 import com.lab.app.model.Car;
 import com.lab.app.repository.CarRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @Slf4j
@@ -21,7 +21,7 @@ public class CarRepositoryImpl implements CarRepository {
         return carList.stream()
                 .filter(car -> car.getCarId() == carId)
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(CarNotFoundException::new);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CarRepositoryImpl implements CarRepository {
         if (isDeleted) {
             carList.add(car);
         } else {
-            throw new NoSuchElementException();
+            throw new CarNotFoundException();
         }
         log.info("|| Repository layer: Updating car with id: {} ||", carId);
         return car;

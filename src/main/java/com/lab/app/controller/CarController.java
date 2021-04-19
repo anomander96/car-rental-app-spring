@@ -1,5 +1,7 @@
 package com.lab.app.controller;
 
+import com.lab.app.controller.assembler.CarAssembler;
+import com.lab.app.controller.model.CarModel;
 import com.lab.app.dto.CarDto;
 import com.lab.app.service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -11,35 +13,36 @@ import javax.validation.Valid;
 
 @RestController
 @Slf4j
-@RequestMapping(value = "/cars")
+@RequestMapping(value = "/api/v1/cars")
 @RequiredArgsConstructor
-public class CarController {
+public class CarController implements com.lab.app.api.CarApi {
 
     private final CarService carService;
+    private final CarAssembler carAssembler;
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/{carId}")
-    public CarDto getCar(@PathVariable int carId) {
+    @Override
+    public CarModel getCar(int carId) {
         log.info("|| Controller layer: Extracting car with id: {} ||", carId);
-        return carService.getCar(carId);
+        CarDto car = carService.getCar(carId);
+        return carAssembler.toModel(car);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public CarDto createCar(@Valid @RequestBody CarDto carDto) {
+    @Override
+    public CarModel createCar(CarDto carDto) {
         log.info("|| Controller layer: Car: {} successfully created ||", carDto);
-        return carService.createCar(carDto);
+        CarDto car = carService.createCar(carDto);
+        return carAssembler.toModel(car);
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/{carId}")
-    public CarDto updateCar(@Valid @RequestBody CarDto carDto, @PathVariable int carId) {
+    @Override
+    public CarModel updateCar(CarDto carDto, int carId) {
         log.info("|| Controller layer: Car: {} successfully updated ||", carDto);
-        return carService.updateCar(carDto, carId);
+        CarDto car = carService.updateCar(carDto, carId);
+        return carAssembler.toModel(car);
     }
 
-    @DeleteMapping(value = "/{carId}")
-    public ResponseEntity<Void> deleteCar(@PathVariable int carId) {
+    @Override
+    public ResponseEntity<Void> deleteCar(int carId) {
         carService.deleteCar(carId);
         log.info("|| Controller layer: Car with id: {} successfully deleted ||", carId);
         return ResponseEntity.noContent().build();

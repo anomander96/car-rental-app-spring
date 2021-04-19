@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @Slf4j
@@ -37,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (isDeleted) {
             userList.add(user);
         } else {
-            throw new RuntimeException("User doesn't exist");
+            throw new UserNotFoundException();
         }
         log.info("|| Repository layer: Updating user with email: {} ||", email);
         return user;
@@ -47,5 +46,14 @@ public class UserRepositoryImpl implements UserRepository {
     public void deleteUser(String email) {
         log.info("|| Repository layer: Deleting user with email: {} ||", email);
         userList.removeIf(user -> user.getEmail().equals(email));
+    }
+
+    @Override
+    public User findUserByLogin(String login) {
+        log.info("|| Repository layer: Getting user with login: {} ||", login);
+        return userList.stream()
+                .filter(user -> user.getLogin().equals(login))
+                .findFirst()
+                .orElseThrow(UserNotFoundException::new);
     }
 }

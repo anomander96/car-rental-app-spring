@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService, UserMapper {
     @Override
     public UserDto getUser(String email) {
         User user = userRepository.getUser(email);
-        log.info("|| Service layer: Getting a user with id: {} ||", email);
+        log.info("|| Service layer: Getting a user with email: {} ||", email);
         return mapUserToUserDto(user);
     }
 
@@ -43,6 +43,13 @@ public class UserServiceImpl implements UserService, UserMapper {
     public void deleteUser(String email) {
         log.info("|| Service layer: Deleting a user with email: {} ||", email);
         userRepository.deleteUser(email);
+    }
+
+    @Override
+    public UserDto findUserByLogin(String login) {
+        User user = userRepository.findUserByLogin(login);
+        log.info("|| Service layer: Getting a user with login : {} ||", login);
+        return mapUserToUserDto(user);
     }
 
     @Override

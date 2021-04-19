@@ -1,8 +1,10 @@
 package com.lab.app.exception;
 
-public class UserNotFoundException extends RuntimeException{
+import com.lab.app.model.enums.ErrorType;
 
-    private static final String DEFAULT_MESSAGE = "User is not found";
+public class UserNotFoundException extends ServiceException{
+
+    private static final String DEFAULT_MESSAGE = "User is not found!";
 
     public UserNotFoundException() {
         super(DEFAULT_MESSAGE);
@@ -10,5 +12,10 @@ public class UserNotFoundException extends RuntimeException{
 
     public UserNotFoundException(String message) {
         super(message);
+    }
+
+    @Override
+    public ErrorType getErrorType() {
+        return ErrorType.DATABASE_ERROR;
     }
 }

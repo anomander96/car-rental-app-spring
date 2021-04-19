@@ -1,12 +1,12 @@
 package com.lab.app.repository.impl;
 
+import com.lab.app.exception.OrderNotFoundException;
 import com.lab.app.model.Order;
 import com.lab.app.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @Slf4j
@@ -20,7 +20,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         return orderList.stream()
                 .filter(order -> order.getOrderId() == orderId)
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(OrderNotFoundException::new);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         if (isDeleted) {
             orderList.add(order);
         } else {
-            throw new RuntimeException();
+            throw new OrderNotFoundException();
         }
         log.info("|| Repository layer: Updating order with id: {} ||", orderId);
         return order;

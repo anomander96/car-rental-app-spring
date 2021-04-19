@@ -1,5 +1,6 @@
 package com.lab.app.repository.impl;
 
+import com.lab.app.exception.AccidentNotFoundException;;
 import com.lab.app.model.Accident;
 import com.lab.app.repository.AccidentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @Slf4j
@@ -21,7 +21,7 @@ public class AccidentRepositoryImpl implements AccidentRepository {
         return accidentList.stream()
                 .filter(accident -> accident.getAccidentId() == accidentId)
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(AccidentNotFoundException::new);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AccidentRepositoryImpl implements AccidentRepository {
         if (isDeleted) {
             accidentList.add(accident);
         } else {
-            throw new RuntimeException();
+            throw new AccidentNotFoundException();
         }
         log.info("|| Repository layer: Updating accident with id: {} ||", accidentId);
         return accident;
