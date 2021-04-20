@@ -1,6 +1,7 @@
 package com.lab.app.service.impl;
 
 import com.lab.app.dto.UserDto;
+import com.lab.app.exception.UserNotFoundException;
 import com.lab.app.mapper.UserMapper;
 import com.lab.app.model.User;
 import com.lab.app.repository.UserRepository;
@@ -18,7 +19,8 @@ public class UserServiceImpl implements UserService, UserMapper {
 
     @Override
     public UserDto getUser(String email) {
-        User user = userRepository.getUser(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
         log.info("|| Service layer: Getting a user with email: {} ||", email);
         return mapUserToUserDto(user);
     }
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService, UserMapper {
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = mapUserDtoToUser(userDto);
-        user = userRepository.createUser(user);
+        user = userRepository.save(user);
         log.info("|| Service layer: Creating a new user ||");
         return mapUserToUserDto(user);
     }
@@ -34,7 +36,11 @@ public class UserServiceImpl implements UserService, UserMapper {
     @Override
     public UserDto updateUser(String email, UserDto userDto) {
         User user = mapUserDtoToUser(userDto);
-        user = userRepository.updateUser(email, user);
+        if (userRepository.findByEmail(email).isPresent()) {
+            user = userRepository.save(user);
+        } else {
+            throw new UserNotFoundException();
+        }
         log.info("|| Service layer: Updating a user with id: {} ||", email);
         return mapUserToUserDto(user);
     }
@@ -42,14 +48,14 @@ public class UserServiceImpl implements UserService, UserMapper {
     @Override
     public void deleteUser(String email) {
         log.info("|| Service layer: Deleting a user with email: {} ||", email);
-        userRepository.deleteUser(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+        userRepository.delete(user);
     }
 
     @Override
     public UserDto findUserByLogin(String login) {
-        User user = userRepository.findUserByLogin(login);
-        log.info("|| Service layer: Getting a user with login : {} ||", login);
-        return mapUserToUserDto(user);
+        return null;
     }
 
     @Override

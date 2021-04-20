@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 public class CarDto {
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int carId;
+    private Long carId;
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int carCategoryId;
+    private Long carCategoryId;
 
     private String brandName;
     private String modelName;

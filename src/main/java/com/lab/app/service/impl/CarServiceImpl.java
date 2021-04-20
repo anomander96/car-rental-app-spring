@@ -1,6 +1,7 @@
 package com.lab.app.service.impl;
 
 import com.lab.app.dto.CarDto;
+import com.lab.app.exception.CarNotFoundException;
 import com.lab.app.mapper.CarMapper;
 import com.lab.app.model.Car;
 import com.lab.app.repository.CarRepository;
@@ -17,8 +18,9 @@ public class CarServiceImpl implements CarService, CarMapper {
     private final CarRepository carRepository;
 
     @Override
-    public CarDto getCar(int carId) {
-        Car car = carRepository.getCar(carId);
+    public CarDto getCar(Long carId) {
+        Car car = carRepository.findByCarId(carId)
+                .orElseThrow(CarNotFoundException::new);
         log.info("|| Service layer: Getting a car with id: {} ||", carId);
         return mapCarToCarDto(car);
     }
@@ -26,23 +28,29 @@ public class CarServiceImpl implements CarService, CarMapper {
     @Override
     public CarDto createCar(CarDto carDto) {
         Car car = mapCarDtoToCar(carDto);
-        car = carRepository.createCar(car);
+        car = carRepository.save(car);
         log.info("|| Service layer: Creating a new car ||");
         return mapCarToCarDto(car);
     }
 
     @Override
-    public CarDto updateCar(CarDto carDto, int carId) {
+    public CarDto updateCar(CarDto carDto, Long carId) {
         Car car = mapCarDtoToCar(carDto);
-        car = carRepository.updateCar(car, carId);
+        if (carRepository.findByCarId(carId).isPresent()) {
+            car = carRepository.save(car);
+        } else {
+            throw new CarNotFoundException();
+        }
         log.info("|| Service layer: Updating a car with id: {} ||", carId);
         return mapCarToCarDto(car);
     }
 
     @Override
-    public void deleteCar(int carId) {
+    public void deleteCar(Long carId) {
         log.info("|| Service layer: deleting a car with id: {} ||", carId);
-        carRepository.deleteCar(carId);
+        Car car = carRepository.findByCarId(carId)
+                .orElseThrow(CarNotFoundException::new);
+        carRepository.delete(car);
     }
 
     @Override

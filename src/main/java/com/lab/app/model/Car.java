@@ -1,16 +1,24 @@
 package com.lab.app.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car {
 
-    private int carId;
-    private int carCategoryId;
-//    private String vinNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long carId;
+    private Long carCategoryId;
     private String brandName;
     private String modelName;
     private String color;

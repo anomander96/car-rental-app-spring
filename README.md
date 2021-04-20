@@ -1,3 +1,7 @@
+For homework related to lecture 5(spring-data) use a branch: "homework5"
+
+All earlier homeworks are on branch "master"
+
 1. Car Rental app on Java/Spring 
    
     Use a path: src/main/java/com/lab/app to open a project with Car Rental application

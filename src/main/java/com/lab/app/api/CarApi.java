@@ -17,7 +17,7 @@ public interface CarApi {
     @ApiOperation("Getting car from database")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{carId}")
-    CarModel getCar(@PathVariable int carId);
+    CarModel getCar(@PathVariable Long carId);
 
     @ApiOperation("Creating car")
     @ResponseStatus(HttpStatus.CREATED)
@@ -27,9 +27,9 @@ public interface CarApi {
     @ApiOperation("Updating car")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{carId}")
-    CarModel updateCar(@Valid @RequestBody CarDto carDto, @PathVariable int carId);
+    CarModel updateCar(@Valid @RequestBody CarDto carDto, @PathVariable Long carId);
 
     @ApiOperation("Deleting car")
     @DeleteMapping(value = "/{carId}")
-    ResponseEntity<Void> deleteCar(@PathVariable int carId);
+    ResponseEntity<Void> deleteCar(@PathVariable Long carId);
 }

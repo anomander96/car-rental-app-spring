@@ -1,16 +1,13 @@
 package com.lab.app.repository;
 
 import com.lab.app.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
+import java.util.Optional;
 
-    User getUser(String email);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    User createUser(User user);
-
-    User updateUser(String email, User user);
-
-    void deleteUser(String email);
-
-    User findUserByLogin(String login);
+    Optional<User> findByEmail(String email);
 }

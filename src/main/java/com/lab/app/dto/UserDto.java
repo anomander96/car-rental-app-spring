@@ -14,10 +14,10 @@ import javax.validation.constraints.NotNull;
 public class UserDto {
 
     @NotNull
-    private int userId;
+    private Long userId;
 
     @NotNull
-    private int userRoleId;
+    private Long userRoleId;
 
     private String firstName;
     private String lastName;

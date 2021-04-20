@@ -4,11 +4,11 @@ import com.lab.app.dto.CarDto;
 
 public interface CarService {
 
-    CarDto getCar(int carId);
+    CarDto getCar(Long carId);
 
     CarDto createCar(CarDto carDto);
 
-    CarDto updateCar(CarDto carDto, int carId);
+    CarDto updateCar(CarDto carDto, Long carId);
 
-    void deleteCar(int carId);
+    void deleteCar(Long carId);
 }

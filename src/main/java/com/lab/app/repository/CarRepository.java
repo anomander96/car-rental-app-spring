@@ -1,14 +1,11 @@
 package com.lab.app.repository;
 
 import com.lab.app.model.Car;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CarRepository {
+import java.util.Optional;
 
-    Car getCar(int carId);
+public interface CarRepository extends JpaRepository<Car, Long> {
 
-    Car createCar(Car car);
-
-    Car updateCar(Car car, int carId);
-
-    void deleteCar(int carId);
+    Optional<Car> findByCarId(Long carId);
 }
