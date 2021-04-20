@@ -17,4 +17,7 @@ public class User {
     private String phone;
     private String passport;
     private boolean isBlocked;
+
+
+    // check for work
 }
