@@ -1,4 +1,4 @@
-For homework related to lecture 5(spring-data) use a branch: "homework5"
+For homework related to lecture 6(spring-data) use a branch: "homework6"
 
 All earlier homeworks are on branch "master"
 
