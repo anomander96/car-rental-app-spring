@@ -13,3 +13,5 @@ All earlier homeworks are on branch "master"
     Use a path: src/main/java/task1 for task1
     
     and src/main/java/task2 for task2
+   
+Troubles with branches was fixed  
