@@ -1,6 +1,7 @@
 package com.lab.app.service.impl;
 
 import com.lab.app.dto.OrderDto;
+import com.lab.app.exception.OrderNotFoundException;
 import com.lab.app.mapper.OrderMapper;
 import com.lab.app.model.Order;
 import com.lab.app.repository.OrderRepository;
@@ -17,8 +18,9 @@ public class OrderServiceImpl implements OrderService, OrderMapper {
     private OrderRepository orderRepository;
 
     @Override
-    public OrderDto getOrder(int orderId) {
-        Order order = orderRepository.getOrder(orderId);
+    public OrderDto getOrder(Long orderId) {
+        Order order = orderRepository.findByOrderId(orderId)
+                .orElseThrow(OrderNotFoundException::new);
         log.info("|| Service layer: Getting an order with id: {} ||", orderId);
         return mapOrderToOrderDto(order);
     }
@@ -26,23 +28,29 @@ public class OrderServiceImpl implements OrderService, OrderMapper {
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
         Order order = mapOrderDtoToOrder(orderDto);
-        order = orderRepository.createOrder(order);
+        order = orderRepository.save(order);
         log.info("|| Service layer: Creating a new order ||");
         return mapOrderToOrderDto(order);
     }
 
     @Override
-    public OrderDto updateOrder(OrderDto orderDto, int orderId) {
+    public OrderDto updateOrder(OrderDto orderDto, Long orderId) {
         Order order = mapOrderDtoToOrder(orderDto);
-        order = orderRepository.updateOrder(order, orderId);
+        if (orderRepository.findByOrderId(orderId).isPresent()) {
+            order = orderRepository.save(order);
+        } else {
+            throw new OrderNotFoundException();
+        }
         log.info("|| Service layer: Updating an order with id: {} ||", orderId);
         return mapOrderToOrderDto(order);
     }
 
     @Override
-    public void deleteOrder(int orderId) {
+    public void deleteOrder(Long orderId) {
         log.info("|| Service layer: Deleting an order with id: {} ||", orderId);
-        orderRepository.deleteOrder(orderId);
+        Order order = orderRepository.findByOrderId(orderId)
+                .orElseThrow(OrderNotFoundException::new);
+        orderRepository.delete(order);
     }
 
     @Override

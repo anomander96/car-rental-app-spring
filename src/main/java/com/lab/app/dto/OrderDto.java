@@ -13,16 +13,16 @@ import java.security.Timestamp;
 public class OrderDto {
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int orderId;
+    private Long orderId;
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int userId;
+    private Long userId;
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int carId;
+    private Long carId;
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int orderStatusId;
+    private Long orderStatusId;
 
     private boolean withDriver;
     private Timestamp createDate;

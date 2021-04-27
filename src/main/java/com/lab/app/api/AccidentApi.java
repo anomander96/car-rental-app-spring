@@ -17,7 +17,7 @@ public interface AccidentApi {
     @ApiOperation("Getting accident from database")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{accidentId}")
-    AccidentModel getAccident(@PathVariable int accidentId);
+    AccidentModel getAccident(@PathVariable Long accidentId);
 
     @ApiOperation("Creating accident")
     @ResponseStatus(HttpStatus.CREATED)
@@ -27,9 +27,9 @@ public interface AccidentApi {
     @ApiOperation("Updating accident")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{accidentId}")
-    AccidentModel updateAccident(@Valid @RequestBody AccidentDto accidentDto, @PathVariable int accidentId);
+    AccidentModel updateAccident(@Valid @RequestBody AccidentDto accidentDto, @PathVariable Long accidentId);
 
     @ApiOperation("Deleting accident")
     @DeleteMapping(value = "/{accidentId}")
-    ResponseEntity<Void> deleteAccident(@PathVariable int accidentId);
+    ResponseEntity<Void> deleteAccident(@PathVariable Long accidentId);
 }

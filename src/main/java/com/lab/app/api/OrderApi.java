@@ -17,7 +17,7 @@ public interface OrderApi {
     @ApiOperation("Getting order from database")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{orderId}")
-    OrderModel getOrder(@PathVariable int orderId);
+    OrderModel getOrder(@PathVariable Long orderId);
 
     @ApiOperation("Creating order")
     @ResponseStatus(HttpStatus.CREATED)
@@ -27,9 +27,9 @@ public interface OrderApi {
     @ApiOperation("Updating order")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{orderId}")
-    OrderModel updateOrder(@Valid @RequestBody OrderDto orderDto, @PathVariable int orderId);
+    OrderModel updateOrder(@Valid @RequestBody OrderDto orderDto, @PathVariable Long orderId);
 
     @ApiOperation("Deleting order")
     @DeleteMapping(value = "/{orderId}")
-    ResponseEntity<Void> deleteOrder(@PathVariable int orderId);
+    ResponseEntity<Void> deleteOrder(@PathVariable Long orderId);
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "car")
 @Data
 @Builder
 @NoArgsConstructor

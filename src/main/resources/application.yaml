@@ -13,3 +13,14 @@ info:
   app:
     name: "Car Rental Spring App"
     description: "Simple app for renting cars on any choice"
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/car_rental_db
+    username: user_car
+    password: usercar

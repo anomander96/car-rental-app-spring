@@ -13,13 +13,13 @@ import java.security.Timestamp;
 public class AccidentDto {
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int accidentId;
+    private Long accidentId;
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int accidentCategoryId;
+    private Long accidentCategoryId;
 
     @NotNull(message = "{id.notnull}", groups = AdvanceValidationGroup.class)
-    private int orderId;
+    private Long orderId;
 
     private String description;
     private Timestamp accidentTime;

@@ -1,13 +1,11 @@
 package com.lab.app.repository;
 
 import com.lab.app.model.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository {
-    Order getOrder(int orderId);
+import java.util.Optional;
 
-    Order createOrder(Order order);
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    Order updateOrder(Order order, int orderId);
-
-    void deleteOrder(int orderId);
+    Optional<Order> findByOrderId(Long orderId);
 }

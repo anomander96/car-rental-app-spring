@@ -4,11 +4,11 @@ import com.lab.app.dto.OrderDto;
 
 public interface OrderService {
 
-    OrderDto getOrder(int orderId);
+    OrderDto getOrder(Long orderId);
 
     OrderDto createOrder(OrderDto orderDto);
 
-    OrderDto updateOrder(OrderDto orderDto, int orderId);
+    OrderDto updateOrder(OrderDto orderDto, Long orderId);
 
-    void deleteOrder(int orderId);
+    void deleteOrder(Long orderId);
 }

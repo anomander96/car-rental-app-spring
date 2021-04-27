@@ -1,13 +1,11 @@
 package com.lab.app.repository;
 
 import com.lab.app.model.Accident;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccidentRepository {
-    Accident getAccident(int accidentId);
+import java.util.Optional;
 
-    Accident createAccident(Accident accident);
+public interface AccidentRepository extends JpaRepository<Accident, Long> {
 
-    Accident updateAccident(Accident accident, int accidentId);
-
-    void deleteAccident(int accidentId);
+    Optional<Accident> findByAccidentId(Long accidentId);
 }

@@ -1,5 +1,6 @@
 package com.lab.app.controller;
 
+import com.lab.app.api.OrderApi;
 import com.lab.app.controller.assembler.OrderAssembler;
 import com.lab.app.controller.model.OrderModel;
 import com.lab.app.dto.OrderDto;
@@ -12,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class OrderController implements com.lab.app.api.OrderApi {
+public class OrderController implements OrderApi {
 
     private final OrderService orderService;
     private final OrderAssembler orderAssembler;
 
     @Override
-    public OrderModel getOrder(int orderId) {
+    public OrderModel getOrder(Long orderId) {
         log.info("|| Controller layer: Extracting order with id: {} ||", orderId);
         OrderDto order = orderService.getOrder(orderId);
         return orderAssembler.toModel(order);
@@ -32,14 +33,14 @@ public class OrderController implements com.lab.app.api.OrderApi {
     }
 
     @Override
-    public OrderModel updateOrder(OrderDto orderDto, int orderId) {
+    public OrderModel updateOrder(OrderDto orderDto, Long orderId) {
         log.info("|| Controller layer: Order: {} successfully updated ||", orderDto);
         OrderDto order = orderService.updateOrder(orderDto, orderId);
         return orderAssembler.toModel(order);
     }
 
     @Override
-    public ResponseEntity<Void> deleteOrder(int orderId) {
+    public ResponseEntity<Void> deleteOrder(Long orderId) {
         log.info("|| Controller layer: Order with id: {} successfully deleted ||", orderId);
         orderService.deleteOrder(orderId);
         return ResponseEntity.noContent().build();

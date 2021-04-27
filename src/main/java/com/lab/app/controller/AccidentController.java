@@ -19,7 +19,7 @@ public class AccidentController implements AccidentApi {
     private final AccidentAssembler accidentAssembler;
 
     @Override
-    public AccidentModel getAccident(int accidentId) {
+    public AccidentModel getAccident(Long accidentId) {
         log.info("|| Controller layer: Extracting accident with id: {} ||", accidentId);
         AccidentDto accident = accidentService.getAccident(accidentId);
         return accidentAssembler.toModel(accident);
@@ -33,17 +33,16 @@ public class AccidentController implements AccidentApi {
     }
 
     @Override
-    public AccidentModel updateAccident(AccidentDto accidentDto, int accidentId) {
+    public AccidentModel updateAccident(AccidentDto accidentDto, Long accidentId) {
         log.info("|| Controller layer: Accident: {} successfully updated ||", accidentDto);
         AccidentDto accident = accidentService.updateAccident(accidentDto, accidentId);
         return accidentAssembler.toModel(accident);
     }
 
     @Override
-    public ResponseEntity<Void> deleteAccident(int accidentId) {
+    public ResponseEntity<Void> deleteAccident(Long accidentId) {
         log.info("|| Controller layer: Accident with id: {} successfully deleted ||", accidentId);
         accidentService.deleteAccident(accidentId);
         return ResponseEntity.noContent().build();
     }
-
 }
